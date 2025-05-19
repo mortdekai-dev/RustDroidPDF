@@ -48,8 +48,6 @@ pub extern "system" fn Java_com_mortdekai_rustdroidpdf_PdfManager_getPageCount (
     return -1
     }
 
-    let handle = unsafe { &*(doc_pointer as &const PdfDocument)};
+    let handle = unsafe { &*(doc_pointer as *const PdfDocument)};
     handle.doc.get_pages().len() as jint
 }
-
-

@@ -51,3 +51,20 @@ pub extern "system" fn Java_com_mortdekai_rustdroidpdf_PdfManager_getPageCount (
     let handle = unsafe { &*(doc_pointer as *const PdfDocument)};
     handle.doc.get_pages().len() as jint
 }
+
+
+#[no_mangle]
+pub extern "system" fn Java_com_mortdekai_rustdroidpdf_PdfManager_closePdfDocument(
+    _env: JNIEnv,
+    _class: JClass,
+    doc_pointer: jlong
+) {
+
+    if doc_pointer == 0 {
+        return;
+    }
+
+    let _ = unsafe {
+        Box::from_raw(doc_pointer as *mut PdfDocument)
+    };
+}
